@@ -1,0 +1,5 @@
+D:\Projects\ZZZ_GIT EXPORT\MWS\PROD\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+D:\Projects\ZZZ_GIT EXPORT\MWS\PROD\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+D:\Projects\ZZZ_GIT EXPORT\MWS\PROD\MfiWebSuite\MfiWebSuite.BL\obj\Release\MfiWebSuite.BL.csprojResolveAssemblyReference.cache
+D:\Projects\ZZZ_GIT EXPORT\MWS\PROD\MfiWebSuite\MfiWebSuite.BL\obj\Release\MfiWebSuite.BL.dll
+D:\Projects\ZZZ_GIT EXPORT\MWS\PROD\MfiWebSuite\MfiWebSuite.BL\obj\Release\MfiWebSuite.BL.pdb

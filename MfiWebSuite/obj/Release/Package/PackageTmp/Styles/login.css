@@ -1,0 +1,187 @@
+﻿body
+{
+	background-color:#F4F4F4;
+	background-image:url('/Images/Resources/brillant.png');
+	background-repeat:repeat-x repeat-y;
+}
+
+.login-form
+{
+	margin:0px;
+}
+
+.login-wrap
+{
+	width: 100%;
+	height: 550px;	
+	border-bottom: 4px solid #989FA4;
+	float: left;
+	background: url("/Images/Resources/dotbg.jpg") repeat;	
+}
+
+.login-box-bg
+{
+	height: 475px;
+    margin: 0 auto;
+    padding-top: 75px;
+    width: 1000px;
+	/*background:url("/Images/Resources/curves.jpg") no-repeat;	*/
+}
+.login-box
+{	
+	background-color: #FFFFFF;
+    border: 2px solid #D0D2D3;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 0 7px rgba(211, 211, 211, 0.7);
+    height: 300px;
+    margin: 0 auto 0;
+    width: 800px;   
+}
+
+
+.login-left
+{
+	background: url("/Images/Resources/clients.jpg") no-repeat scroll 0 0 transparent;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    float: left;
+    height: 300px;
+    width: 415px;
+}
+
+.login-right
+{
+	border-left: 1px solid #4A4747;
+	padding-left: 1px;
+	float: left;
+	height: 100%;
+	width: 383px;
+}
+
+.login-right-contents
+{
+	width:100%;
+	float:left;
+}
+
+.login-comp-head
+{
+	background-color: #F8F7F7;
+	border-bottom: 1px solid #C9C7C7;
+	border-top-right-radius: 8px;
+	float: left;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	width: 100%;
+}
+
+.login-comp-logo
+{
+	width: 130px;
+	height: 50px;
+	background: url('/Images/Resources/login-logo.png') no-repeat;
+	margin-left: 20px;
+	float: left;
+}
+
+.login-comp-title
+{
+	color: #585656;
+	float: left;
+	font-size: 26px;
+	font-weight: bold;
+	margin-left: 25px;
+	margin-top: 22px;
+	text-shadow: 1px 1px #E3E0E0;
+}
+
+.login-cred-wrap
+{
+	 margin: 30px auto 0;
+    width: 183px;
+}
+
+.login-cred-wrap .ctrlwrap
+{
+	float: left;
+	width: 100%;
+}
+
+.login-cred-wrap .ctrl
+{
+	float: left;
+	width: 100%;
+}
+
+.login-cred-wrap .txt
+{
+	width: 170px;
+}
+
+.login-cred-wrap .err
+{
+	width:220px;
+	color: Red;
+	float: left;
+	font-size: 12px;
+	margin-top: -5px;
+	margin-bottom: 5px;
+	
+}
+
+.login-glo-err
+{
+	margin: 10px auto 0;
+	width: 95%;	
+}
+
+.login-glo-err .alert
+{
+	margin-bottom:0px;
+	padding:5px;
+}
+
+.login-cred-wrap .loginbtn
+{
+	float: right;
+    margin-right: 3px;    
+}
+
+.login-btn-txt
+{
+	float: left;
+    margin-right: 2px;
+    margin-top: -3px;
+}
+
+.login-foot-wrap
+{
+	float:left;
+	width: 100%;
+	height: 100px;	
+}
+
+.login-footer
+{
+	font-size:13px;
+	margin:0 auto;
+	width:800px;
+	margin-top:35px;
+}
+
+.login-footer a
+{
+	text-decoration:none;
+	color:#333333;
+}
+
+.login-footer .left
+{
+	float:left;
+}
+	
+.login-footer .right
+{
+	float:right;
+}
+

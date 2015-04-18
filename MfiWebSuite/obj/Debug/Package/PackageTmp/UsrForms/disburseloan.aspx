@@ -1,0 +1,951 @@
+﻿<%@ Page Title="Disburse Loan" Language="C#" MasterPageFile="~/MasterPages/default.Master"
+    AutoEventWireup="true" CodeBehind="disburseloan.aspx.cs" Inherits="MfiWebSuite.UsrForms.disburseloan" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="../Scripts/json2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        function fnVal() {
+
+            var disbAmntOK = 0; //check if valid number
+            var disbAmntAllowed = 0; //check if within limit
+            var disbDateCtr = 0;
+
+            var repDateCtr = 0;
+            var repDateOK = 0;
+
+            var emiCtr = 0;
+            var emiOK = 0;
+
+            var errorMsgs = new Array();
+
+
+            $("[ID^='LN_']").each(function () {
+                var lnID = $(this).attr("id");
+
+                var disbAmnt = $("#" + lnID + " td .cmDisbAmnt").val();
+
+                //disb amount
+                if (isNumber(disbAmnt) && parseFloat(disbAmnt) > 0) {
+                    disbAmntOK++;
+                }
+
+                //amount within limits
+                if (parseInt(disbAmnt) <= parseInt($("#ContentPlaceHolder1_uxLpamnt").html())) {
+                    disbAmntAllowed++;
+                }
+
+                //get disb date count
+                if ($("#" + lnID + " .cmDisbDate").datepicker("getDate") != null) {
+                    disbDateCtr++;
+                }
+
+                //get repayment date count
+                if ($("#" + lnID + " .cmFRDate").datepicker("getDate") != null) {
+                    repDateCtr++;
+
+                    //check if the date is greater than disb date
+                    var disbDt = $("#" + lnID + " .cmDisbDate").datepicker("getDate");
+                    var repDt = $("#" + lnID + " .cmFRDate").datepicker("getDate");
+
+                    if (repDt > disbDt) {
+                        repDateOK++;
+                    }
+                }
+
+                //emi checks
+                var emi = $("#" + lnID + " .cmEMI").val();
+
+                if (emi != "") {
+                    emiCtr++;
+
+                    if (isNumber(emi) && (parseFloat(emi) > 0) && (parseFloat(emi) < disbAmnt)) {
+                        emiOK++;
+                    }
+                }
+            });     //tr ln each
+
+            var cliCtr = $("[ID^='LN_']").length;
+
+
+            if (cliCtr != disbAmntOK) {
+                errorMsgs.push("Please enter a valid disbursement amount.");
+            }
+
+            if (cliCtr != disbAmntAllowed) {
+                errorMsgs.push("Disbursement amount cannot be more than the amount set in Loan Product. Reduce the disbursement amount or increase the value in Loan Product");
+            }
+
+            if (cliCtr != disbDateCtr) {
+                errorMsgs.push("Disbursement date cannot be empty");
+            }
+
+            if (repDateCtr > 0 && repDateCtr != repDateOK) {
+                errorMsgs.push("First Repayment date, if present, must be greater than disbursement date");
+            }
+
+            if (emiCtr > 0 && emiCtr != emiOK) {
+                errorMsgs.push("Please check your EMI value. Only valid numbers are allowed and they cannot be more than disbursement amount.");
+            }
+
+            return errorMsgs;
+
+
+        } //fnval
+
+
+        function fnValByID(lnID) {
+
+            var disbAmntOK = 0; //check if valid number
+            var disbAmntAllowed = 0; //check if within limit
+            var disbDateCtr = 0;
+
+            var repDateCtr = 0;
+            var repDateOK = 0;
+
+            var emiCtr = 0;
+            var emiOK = 0;
+
+            var errorMsgs = new Array();
+
+            var disbAmnt = $("#" + lnID + " td .cmDisbAmnt").val();
+
+            //disb amount
+            if (isNumber(disbAmnt) && parseFloat(disbAmnt) > 0) {
+                disbAmntOK++;
+            }
+
+            //amount within limits
+            if (parseInt(disbAmnt) <= parseInt($("#ContentPlaceHolder1_uxLpamnt").html())) {
+                disbAmntAllowed++;
+            }
+
+            //get disb date count
+            if ($("#" + lnID + " .cmDisbDate").datepicker("getDate") != null) {
+                disbDateCtr++;
+            }
+
+            //get repayment date count
+            if ($("#" + lnID + " .cmFRDate").datepicker("getDate") != null) {
+                repDateCtr++;
+
+                //check if the date is greater than disb date
+                var disbDt = $("#" + lnID + " .cmDisbDate").datepicker("getDate");
+                var repDt = $("#" + lnID + " .cmFRDate").datepicker("getDate");
+
+                if (repDt > disbDt) {
+                    repDateOK++;
+                }
+            }
+
+            //emi checks
+            var emi = $("#" + lnID + " .cmEMI").val();
+
+            if (emi != "") {
+                emiCtr++;
+
+                if (isNumber(emi) && (parseFloat(emi) > 0) && (parseFloat(emi) < disbAmnt)) {
+                    emiOK++;
+                }
+            }
+
+
+            var cliCtr = 1; // $("[ID^='LN_']").length;
+
+
+            if (cliCtr != disbAmntOK) {
+                errorMsgs.push("Please enter a valid disbursement amount.");
+            }
+
+            if (cliCtr != disbAmntAllowed) {
+                errorMsgs.push("Disbursement amount cannot be more than the amount set in Loan Product. Reduce the disbursement amount or increase the value in Loan Product");
+            }
+
+            if (cliCtr != disbDateCtr) {
+                errorMsgs.push("Disbursement date cannot be empty");
+            }
+
+            if (repDateCtr > 0 && repDateCtr != repDateOK) {
+                errorMsgs.push("First Repayment date, if present, must be greater than disbursement date");
+            }
+
+            if (emiCtr > 0 && emiCtr != emiOK) {
+                errorMsgs.push("Please check your EMI value. Only valid numbers are allowed and they cannot be more than disbursement amount.");
+            }
+
+            return errorMsgs;
+
+
+        } //fnval individual
+
+        function fnEmiFunctionalVal(lnID) {
+
+            var errInvalidEMI = 0;
+
+            var prinOut = $("#LN_" + lnID + " td .cmDisbAmnt").val();
+            var intRate = $("#ContentPlaceHolder1_uxLpInt").html() / 100;
+            var tenure = parseInt($("#ContentPlaceHolder1_uxLpTenure").html());
+
+            var CollectionTypeID = parseInt($("#ContentPlaceHolder1_hdnCFTID").val());
+            var CollectionFreq = parseInt($("#ContentPlaceHolder1_hdnCFV").val());
+
+            var totalInstallments;
+
+            if (CollectionTypeID == 1) {
+                totalInstallments = tenure;
+            }
+            else if (CollectionTypeID == 2) {
+                totalInstallments = Math.round( ((tenure / 12) * 365) / CollectionFreq);
+            }
+
+            var startDate = $("#LN_" + lnID + " .cmDisbDate").datepicker("getDate");
+            var endDate;
+            var emi;
+
+            //get first disbursement date, if present
+            if ($("#LN_" + lnID + " .cmFRDate").datepicker("getDate") != null) {
+                endDate = $("#LN_" + lnID + " .cmFRDate").datepicker("getDate");
+
+                if (endDate.getDay() == 0) {
+                    endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                }
+            }
+            else {
+                if (CollectionTypeID == 1) {
+                    endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+                }
+                else if (CollectionTypeID == 2) {
+                    endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + CollectionFreq);
+                }
+
+                if (endDate.getDay() == 0) {
+                    endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                }
+            }
+
+            if ($("#LN_" + lnID + " .cmEMI").val() != "") {
+                emi = $("#LN_" + lnID + " .cmEMI").val();
+            }
+            else {
+                emi = Math.round(prinOut * (1 + (intRate * 0.555)) / totalInstallments);
+            }
+
+            for (var ctr = 1; ctr <= totalInstallments; ctr++) {
+
+                var daysDifference = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+                var interest = Math.round((prinOut * intRate * daysDifference) / 365);
+                var principalComponent = emi - interest;
+
+                prinOut = prinOut - principalComponent;
+
+                if (ctr == totalInstallments) {
+                    emi = parseFloat(emi) + parseFloat(prinOut);
+                    principalComponent = parseFloat(emi) - parseFloat(interest);
+                    prinOut = 0;
+                }
+                if ((parseFloat(principalComponent) < 0) || (parseFloat(interest) < 0)) {
+                    errInvalidEMI++;
+                }
+                startDate = endDate;
+                
+                if (CollectionTypeID == 1) {
+                    endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+                }
+                else if (CollectionTypeID == 2) {
+                    endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + CollectionFreq);
+                }
+                //endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+
+                if (endDate.getDay() == 0) {
+                    endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                }
+            }
+
+            if (errInvalidEMI > 0) {
+                return false;
+            }
+            else
+                return true;
+
+        } //fn emi func val
+
+        function fnDisb() {
+
+            //ui 
+            $("#modalDisbNot").html("Disbursing...&nbsp;<img src='/Images/Resources/ajax-loader.gif' />");
+            $("#btnDisbOk").addClass("disabled");
+            $("#btnCancelDisb").addClass("disabled");
+
+            var LoanData = {
+                loan: [] //don't change the name. coupled with class
+            };
+
+            //common values
+            var intRate = $("#ContentPlaceHolder1_uxLpInt").html();
+            
+            var tenure = parseInt($("#ContentPlaceHolder1_uxLpTenure").html());
+
+            var CollectionTypeID = parseInt($("#ContentPlaceHolder1_hdnCFTID").val());
+            var CollectionFreq = parseInt($("#ContentPlaceHolder1_hdnCFV").val());
+
+            var totalInstallments;
+
+            if (CollectionTypeID == 1) {
+                totalInstallments = tenure;
+            }
+            else if (CollectionTypeID == 2) {
+                totalInstallments = Math.round( ((tenure / 12) * 365) / CollectionFreq);
+            }
+
+            $("[ID^='LN_']").each(function () {
+
+                var lnID = $(this).attr("id").split('_')[1];
+                var disbAmnt = $("#LN_" + lnID + " td .cmDisbAmnt").val();
+
+                var disbDate = $("#LN_" + lnID + " .cmDisbDate").datepicker("getDate");
+                disbDate = disbDate.getFullYear() + "-" + (disbDate.getMonth() + 1) + "-" + disbDate.getDate();
+
+                var frDate = "";
+
+                if ($("#LN_" + lnID + " .cmFRDate").datepicker("getDate") != null) {
+                    frDate = $("#LN_" + lnID + " .cmFRDate").datepicker("getDate");
+                    frDate = frDate.getFullYear() + "-" + (frDate.getMonth() + 1) + "-" + frDate.getDate();
+                }
+
+                var emi = "";
+                if ($("#LN_" + lnID + " .cmEMI").val() != "") {
+                    emi = $("#LN_" + lnID + " .cmEMI").val();
+                }
+
+
+                //put values in json
+
+                LoanData.loan.push({
+                    "LoanID": lnID,
+                    "Amnt": disbAmnt,
+                    "DisbDate": disbDate,
+                    "FrDate": frDate,
+                    "Emi": emi
+                });
+
+            }); //each loan row
+
+            //ajax
+            //alert(JSON.stringify(LoanData));
+            $.ajax({
+                type: "POST",
+                url: "/Ajax/loan.aspx",
+                data: "AjaxMethod=disburse" +
+                        "&GID=" + $("#ContentPlaceHolder1_hdnGID").val() +
+                        "&Int=" + intRate +
+                        "&Inst=" + totalInstallments +
+                        "&LoanData=" + JSON.stringify(LoanData),
+
+                success: function (returnResponse) {
+
+                    var element = jQuery(returnResponse).find("#hdnLUK");
+
+                    if (element.length == 1) {
+                        window.location = "/login?rr=se";
+                    }
+                    else {
+
+                        var responseStatus = returnResponse.split('_')[0];
+                        var responseMsg = returnResponse.split('_')[1];
+                        var errorID = returnResponse.split('_')[2];
+
+                        if (responseStatus == "Error") {
+
+                            if (responseMsg == "Default") {
+
+                                $("#modalDisbNot").html("<div id='frmAlert' class='alert alert-block alert-error'></div>");
+                                $("#frmAlert").append("Sorry, encountered an unexpected error. Please try again.");
+                            }
+                            else if (responseMsg == "Process") {
+                                $("#modalDisbNot").html("<div id='frmAlert' class='alert alert-block alert-error'></div>");
+                                $("#frmAlert").append("Sorry, encountered an error while processing. Please contact system administrator with the Error Code: #0" + errorID);
+                            }
+
+                            $("#btnDisbOk").removeClass("disabled");
+                            $("#btnCancelDisb").removeClass("disabled");
+                        }
+                        else if (responseStatus == "Success") {
+                            $("#divBtnSec").remove();
+                            $(".ldisb-amnt").attr("disabled", "disabled");
+                            $(".gloEMI").attr("disabled", "disabled");
+                            $(".cmEMI").attr("disabled", "disabled");
+
+                            $("#locNotHO").html("<div class='alert alert-block alert-success'><strong>Success!</strong> Disbursement has been completed.</div>");
+
+
+                            $('#modalDisb').modal('hide');
+                            $("html, body").animate({ scrollTop: 0 }, "fast");
+                        }
+
+                    }
+                }, //success
+                error: function (xhr) {
+                    $("#modalDisbNot").html("<div id='frmAlert' class='alert alert-block alert-error'></div>");
+                    $("#frmAlert").append("Sorry, encountered an unexpected error. Please try again.");
+
+                    $("#btnDisbOk").removeClass("disabled");
+                    $("#btnCancelDisb").removeClass("disabled");
+                }
+            });   //ajax
+
+        } //fn disb
+
+        $(function () {
+
+            $('#modalDisb').modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: false
+            });
+
+            $('#modalDel').modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: false
+            });
+
+            //reject loan
+            $("#btnRejectLoan").click(function () {
+                $("#spnDelTxt").text("Do you really want to reject this loan? This will also delete the group.");
+                $("#btnDelYes").removeClass("disabled").show();
+                $("#btnDelNo").removeClass("disabled").show().text("No");
+
+                $('#modalDel').modal('show');
+            });
+
+
+            $("#btnDelYes").click(function () {
+                if (!$(this).hasClass('disabled')) {
+
+                    $("#btnDelYes").addClass("disabled");
+                    $("#btnDelNo").addClass("disabled");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Ajax/loan.aspx",
+                        data: "AjaxMethod=RejectLoan" +
+                        "&GID=" + $("#ContentPlaceHolder1_hdnGID").val(),
+                        success: function (returnResponse) {
+
+                            var element = jQuery(returnResponse).find("#hdnLUK");
+
+                            if (element.length == 1) {
+                                window.location = "/login?rr=se";
+                            }
+                            else {
+
+                                if (returnResponse == "Error") {
+                                    $("#spnDelTxt").text("Sorry, encountered an error. Please try again.");
+                                    $("#btnDelYes").removeClass("disabled");
+                                    $("#btnDelNo").removeClass("disabled");
+                                }                            
+
+                                else if (returnResponse == "Error_SessionExpired") {
+                                    window.location = "/login?rr=se";
+                                }
+                                else {
+                                    $("#spnDelTxt").text("Loan has been successfully rejected and group removed. You can apply for new loans for these clients.");
+                                    $("#btnDelNo").removeClass("disabled").text("Ok");
+                                }
+                            }
+                        }
+                    }); //ajax
+                }
+            });
+
+            $("#btnDelNo").click(function () {
+                if (!$(this).hasClass('disabled')) {
+
+                    if ($(this).text() == "Ok") {
+                        $("#divBtnSec").remove();
+                        window.location = "/pending-loans";
+                    }
+                    else {
+                        $('#modalDel').modal('hide');
+                    }
+                }
+            });
+
+            //disburse
+            $("#btnDisbOk").click(function () {
+                if (!$(this).hasClass('disabled')) {
+                    fnDisb();
+                }
+            });
+
+            $("#btnCancelDisb").click(function () {
+                if (!$(this).hasClass('disabled')) {
+
+                    if ($(this).text() == "Ok") {
+                        //location.reload();
+                        //window.location = "/pending-loans";
+
+                    }
+                    else {
+                        $('#modalDisb').modal('hide');
+                    }
+                }
+            });
+
+            $("#btnDisburse").click(function () {
+                //ui resets
+                $("#locNotHO").html("");
+
+                var errors = fnVal();
+
+                var emiCtr = 0; //total valid emi's
+
+                $("[ID^='LN_']").each(function () {
+                    var lnID = $(this).attr("id").split('_')[1];
+
+                    if (fnEmiFunctionalVal(lnID)) {
+                        emiCtr++;
+                    }
+                    else {
+                        errors.push("EMI for client " + $("#LN_" + lnID + " td:eq(0) a").html() + " will result in negative principal/interest values. Please correct it.");
+                    }
+                });
+
+
+                if (errors.length == 0 && ($("[ID^='LN_']").length == emiCtr)) {
+
+                    $("#modalDisbNot").html("<p>Are you sure you want to disburse?</p> <p>Please check the details before confirming.</p>"); //remove modal msg
+                    $("#btnDisbOk").removeClass("disabled").show();
+                    $("#btnCancelDisb").removeClass("disabled").text("Cancel").show();
+
+                    $("#modalDisb").modal('show');
+                }
+                else {
+                    $("#locNotHO").append("<div id='frmAlert' class='alert alert-block alert-error'></div>");
+                    $("#frmAlert").append("<a class='close' data-dismiss='alert' href='#'>×</a>");
+                    $("#frmAlert").append("<h4 class='alert-heading'>Please correct the below mistake(s) to continue:</h4><br/>");
+
+                    for (var i = 0; i < errors.length; i++) {
+                        $("#frmAlert").append("<h5><i class='icon-hand-right'></i>&nbsp; " + errors[i] + "</h5>");
+                    }
+
+                    $("html, body").animate({ scrollTop: 0 }, "fast");
+                }
+            });
+
+
+            $('#modalRPS').modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: false
+            });
+
+            $("[ID^='RPS_']").click(function () {
+
+                $(this).attr("disabled", "disabled");
+                $("#modalNot").html("");
+                $("#uxRPS").hide();
+                $("#uxRPS tbody").html("");
+
+                var lnID = $(this).attr("id").split('_')[1];
+
+                var errors = fnValByID("LN_" + lnID);
+                var errInvalidEMI = 0;
+
+                if (errors.length == 0) {
+
+                    var prinOut = $("#LN_" + lnID + " td .cmDisbAmnt").val();
+                    var intRate = $("#ContentPlaceHolder1_uxLpInt").html() / 100;
+                    
+                    var tenure = parseInt($("#ContentPlaceHolder1_uxLpTenure").html());
+
+                    var CollectionTypeID = parseInt($("#ContentPlaceHolder1_hdnCFTID").val());
+                    var CollectionFreq = parseInt($("#ContentPlaceHolder1_hdnCFV").val());
+
+                    var totalInstallments;
+
+                    if (CollectionTypeID == 1) {
+                        totalInstallments = tenure;
+                    }
+                    else if (CollectionTypeID == 2) {
+                        totalInstallments = Math.round( ((tenure / 12) * 365) / CollectionFreq);
+                    }
+
+                    var startDate = $("#LN_" + lnID + " .cmDisbDate").datepicker("getDate");
+                    var endDate;
+                    var emi;
+
+                    var month = new Array();
+                    month[0] = "Jan";
+                    month[1] = "Feb";
+                    month[2] = "Mar";
+                    month[3] = "Apr";
+                    month[4] = "May";
+                    month[5] = "Jun";
+                    month[6] = "Jul";
+                    month[7] = "Aug";
+                    month[8] = "Sep";
+                    month[9] = "Oct";
+                    month[10] = "Nov";
+                    month[11] = "Dec";
+
+                    var weekday = new Array(7);
+                    weekday[0] = "Sun";
+                    weekday[1] = "Mon";
+                    weekday[2] = "Tue";
+                    weekday[3] = "Wed";
+                    weekday[4] = "Thu";
+                    weekday[5] = "Fri";
+                    weekday[6] = "Sat";
+
+                    //get first disbursement date, if present
+                    if ($("#LN_" + lnID + " .cmFRDate").datepicker("getDate") != null) {
+                        
+                        endDate = $("#LN_" + lnID + " .cmFRDate").datepicker("getDate");
+
+                        if (endDate.getDay() == 0) {
+                            endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                        }
+                    }
+                    else {
+                        
+                        if (CollectionTypeID == 1) {
+                            endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+                        }
+                        else if (CollectionTypeID == 2) {
+                            endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + CollectionFreq);
+                        }
+
+                        //endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+
+                        if (endDate.getDay() == 0) {
+                            endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                        }
+                    }
+
+                    //get emi if present
+                    if ($("#LN_" + lnID + " .cmEMI").val() != "") {
+                        emi = $("#LN_" + lnID + " .cmEMI").val();
+                    }
+                    else {
+                        emi = Math.round(prinOut * (1 + (intRate * 0.555)) / totalInstallments);
+                    }
+
+
+                    for (var ctr = 1; ctr <= totalInstallments; ctr++) {
+
+                        var daysDifference = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+                        var interest = Math.round((prinOut * intRate * daysDifference) / 365);
+
+                        var principalComponent = emi - interest;
+
+                        prinOut = prinOut - principalComponent;
+
+
+                        if (ctr == totalInstallments) {
+                            emi = parseFloat(emi) + parseFloat(prinOut);
+
+                            principalComponent = parseFloat(emi) - parseFloat(interest);
+                            prinOut = 0;
+                        }
+
+                        if ((parseFloat(principalComponent) < 0) || (parseFloat(interest) < 0)) {
+                            errInvalidEMI++;
+                        }
+
+                        var prettyDate = endDate.getDate() + "-" + month[endDate.getMonth()] + "-" + (endDate.getFullYear()) % 100 + " (" + weekday[endDate.getDay()] + ")";
+                        $("#uxRPS tbody").append("<tr><td>" + ctr + "</td><td>" + prettyDate + "</td><td>" + principalComponent + "</td><td>" + interest + "</td><td>" + (interest + principalComponent) + "</td></tr>");
+
+                        startDate = endDate;
+                        //endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+                        if (CollectionTypeID == 1) {
+                            endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+                        }
+                        else if (CollectionTypeID == 2) {
+                            endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + CollectionFreq);
+                        }
+
+                        if (endDate.getDay() == 0) {
+                            endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() - 1);
+                        }
+                    }
+
+                    if (errInvalidEMI > 0) {
+                        $("#modalNot").append("<div id='modAlert' class='alert alert-block alert-error'></div>");
+                        $("#modAlert").append("<h4 class='alert-heading'>Please enter a valid EMI to view schedule. The EMI, if specified, must not result in negative principal and/or interest components.</h4><br/>");
+                    }
+                    else {
+                        $("#uxRPS").show();
+                    }
+
+                }
+                else {
+                    $("#modalNot").append("<div id='modAlert' class='alert alert-block alert-error'></div>");
+                    $("#modAlert").append("<h4 class='alert-heading'>Please correct the below mistake(s) to continue:</h4><br/>");
+
+                    for (var i = 0; i < errors.length; i++) {
+                        $("#modAlert").append("<h5><i class='icon-hand-right'></i>&nbsp; " + errors[i] + "</h5>");
+                    }
+                }
+
+
+                $('#modalRPS').modal('show');
+                $(this).removeAttr("disabled");
+
+            });
+
+
+
+            $(".GroupLeader").tooltip();
+
+            $("#btnViewRPS").popover({
+                placement: "top"
+            });
+
+            $(".cmDisbDate").datepicker();
+            $(".cmDisbDate").datepicker("option", "dateFormat", "d M y");
+            $(".cmDisbDate").datepicker('setDate', new Date());
+
+            $(".cmFRDate").datepicker();
+            $(".cmFRDate").datepicker("option", "dateFormat", "d M y");
+
+            $(".gloAmnt").keyup(function () {
+                $(".cmDisbAmnt").val($(this).val());
+            });
+
+            $(".gloDate").change(function () {
+                $(".cmDisbDate").datepicker('setDate', $(".gloDate").datepicker("getDate"));
+            });
+
+            $(".gloFrDate").change(function () {
+                $(".cmFRDate").datepicker('setDate', $(".gloFrDate").datepicker("getDate"));
+            });
+
+            $(".gloEMI").keyup(function () {
+                $(".cmEMI").val($(this).val());
+            });
+
+
+        });
+    </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="gen-container-1">
+        <div class="ho-content">
+            <div class="gen-title">
+                Loan Disbursement
+            </div>
+            <div id="locNotHO" class="span12">
+            </div>
+            <div class="span12" id="DisburseLoan" runat="server">
+                <div class="ldisb-info">
+                    <table class="table table-bordered ldisb-inf-tbl">
+                        <tr>
+                            <td class="lbl">
+                                Group
+                            </td>
+                            <td>
+                                <span id="uxGroupID" runat="server"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">
+                                Applied On
+                            </td>
+                            <td>
+                                <span id="uxAppliedOn" runat="server"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">
+                                Field Executive
+                            </td>
+                            <td>
+                                <span id="uxFE" runat="server"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lbl">
+                                Group Hierarchy
+                            </td>
+                            <td>
+                                <span id="uxHierarchy" runat="server"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-condensed table-bordered ldisb-lp-tbl" id="uxLpDetails">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Loan Product
+                                </th>
+                                <th>
+                                    Max Amount (Rs)
+                                </th>
+                                <th>
+                                    Interest (%)
+                                </th>
+                                <th>
+                                    Tenure (months)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span id="uxLP" runat="server"></span>
+                                </td>
+                                <td>
+                                    <span id="uxLpamnt" runat="server"></span>
+                                </td>
+                                <td>
+                                    <span id="uxLpInt" runat="server"></span>
+                                </td>
+                                <td>
+                                    <span id="uxLpTenure" runat="server"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ldisb-clients">
+                    <table class="table table-bordered ldisb-cli-tbl">
+                        <thead>
+                            <tr>
+                                <th class="client">
+                                    Client
+                                </th>
+                                <th class="lp">
+                                    Loan Purpose
+                                </th>
+                                <th class="amnt">
+                                    Amount Applied (Rs)
+                                </th>
+                                <th class="disb">
+                                    Amount to Disburse (Rs)
+                                </th>
+                                <th class="date">
+                                    Disbursement Date
+                                </th>
+                                <th class="date">
+                                    1<sup>st</sup> Repayment Date
+                                    <h5>
+                                        (Optional)</h5>
+                                </th>
+                                <th class="emi">
+                                    EMI (Rs)
+                                    <h5>
+                                        (Optional)</h5>
+                                </th>
+                                <th>
+                                    Repayment Schedule
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="uxClientList" runat="server">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ldisb-btn-sec" id="divBtnSec">
+                    <a id="btnDisburse" class="btn btn-large btn-success pull-right"><i class="icon-white icon-check">
+                    </i>&nbsp; Sanction & Disburse </a>
+                    <%--<a id="btnViewRPS" title="View Repayment Schedule"
+                        data-content="Use this feature to view Repayment Schedule of clients before disbursing loans and to adjust EMI if needed."
+                        class="btn btn-large pull-right vrps"><i class="icon-calendar"></i>&nbsp; View RPS
+                    </a>--%>
+                    <a id="btnRejectLoan" class="btn btn-danger pull-left"><i class="icon-white icon-trash">
+                    </i>&nbsp; Reject Loan</a>
+                </div>
+            </div>
+            <div class="modal hide" id="modalRPS">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×</button>
+                    <h3>
+                        Loan Repayment Schedule
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="" id="modalNot">
+                    </div>
+                    <div>
+                        <table class="table table-bordered table-condensed ldisb-rps-tbl" id="uxRPS">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Inst. No
+                                    </th>
+                                    <th>
+                                        Due Date
+                                    </th>
+                                    <th>
+                                        Principal (Rs)
+                                    </th>
+                                    <th>
+                                        Interest (Rs)
+                                    </th>
+                                    <th>
+                                        Total (Rs)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <%--                <div class="modal-footer">
+                    <div>
+                        <a class="btn btn-success" id="btnSaveLAF"><i class="icon-ok icon-white"></i>&nbsp;Yes
+                        </a><a class="btn" id="btnCancel">Cancel</a>
+                    </div>
+                </div>--%>
+            </div>
+            <div class="modal hide" id="modalDisb">
+                <div class="modal-header">
+                    <%--<button type="button" class="close" data-dismiss="modal">
+                    ×</button>--%>
+                    <h3>
+                        Loan Disbursement
+                    </h3>
+                </div>
+                <div class="modal-body of-modal-body">
+                    <div class="laf-mod-bod" id="modalDisbNot">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <a class="btn btn-success" id="btnDisbOk"><i class="icon-ok icon-white"></i>&nbsp;Yes
+                        </a><a class="btn" id="btnCancelDisb">Cancel</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal hide" id="modalDel">
+                <div class="modal-footer">
+                    <div class="of-del-modal">
+                        <table>
+                            <tr>
+                                <td class="of-del-modal-txt">
+                                    <span id="spnDelTxt"></span>
+                                </td>
+                                <td class="of-del-btn">
+                                    <a class="btn btn-danger btn-large" id="btnDelYes">Yes </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-large" id="btnDelNo">No</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="hdnGID" runat="server" />
+            <input type="hidden" id="hdnCFTID" runat="server" />
+            <input type="hidden" id="hdnCFV" runat="server" />
+        </div>
+    </div>
+</asp:Content>

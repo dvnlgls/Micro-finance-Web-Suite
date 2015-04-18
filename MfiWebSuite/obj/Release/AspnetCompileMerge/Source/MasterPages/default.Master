@@ -1,0 +1,64 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="default.master.cs" Inherits="MfiWebSuite.MasterPages._default" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="/Bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Styles/default.css" rel="stylesheet" type="text/css" />
+    <link href="/Styles/bootvar1.css" rel="stylesheet" type="text/css" />    
+        <link rel="stylesheet" href="/JQuery/jquery-ui-1.8.21.custom/development-bundle/themes/base/jquery.ui.all.css" />
+    <script type="text/javascript" src="/JQuery/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/JQuery/jquery-ui-1.8.21.custom/development-bundle/ui/jquery-ui-1.8.21.custom.js"></script>
+    <script src="/Scripts/validate.js" type="text/javascript"></script>
+    
+    <%--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>--%>
+    <%--bootstrap must be loaded after jQuery!--%>
+    <script src="/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div>
+        <div class="df-container">
+            <form id="form1" runat="server" class="df-form">
+            <div class="df-header-out">
+                <div class="df-head-inner-wrap">
+                    <a class="df-head-logo" href="/home"></a>
+                    <div class="df-head-menu">
+                        <div class="navbar navbar-static">
+                            <div class="navbar-inner">
+                                <div class="container" style="width: auto;">
+                                    <a class="brand" href="/home">MWS</a>
+                                    <ul class="nav" id="menu" runat="server">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="df-head-logout">
+                        <span class="txt" id="uxUserName" runat="server"></span><a href="#" runat="server"
+                            onserverclick="btnLogout_Click">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <div class="df-child-container-wrap">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="foot-wrap">
+                <div class="footer">              
+                    <div class="pull-right">
+                        Powered by <a href="http://www.epoweri.com" target="_blank"><strong>E power I</strong></a>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

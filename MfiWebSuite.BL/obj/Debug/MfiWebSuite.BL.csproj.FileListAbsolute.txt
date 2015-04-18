@@ -1,0 +1,25 @@
+D:\AD\E Power I\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+D:\AD\E Power I\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+D:\AD\E Power I\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\ResolveAssemblyReference.cache
+D:\AD\E Power I\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.dll
+D:\AD\E Power I\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.pdb
+D:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+D:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+D:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.csprojResolveAssemblyReference.cache
+D:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.dll
+D:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.pdb
+C:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+C:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+C:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.csprojResolveAssemblyReference.cache
+C:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.dll
+C:\Devin\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.pdb
+D:\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+D:\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+D:\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.csprojResolveAssemblyReference.cache
+D:\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.dll
+D:\Projects\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.pdb
+D:\Projects\zzz_Archived\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.dll
+D:\Projects\zzz_Archived\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\bin\MfiWebSuite.BL.pdb
+D:\Projects\zzz_Archived\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.csprojResolveAssemblyReference.cache
+D:\Projects\zzz_Archived\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.dll
+D:\Projects\zzz_Archived\MFI Web Suite\MfiWebSuite\MfiWebSuite.BL\obj\Debug\MfiWebSuite.BL.pdb
